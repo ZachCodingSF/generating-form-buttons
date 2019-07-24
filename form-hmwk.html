@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        #middle {
+            border: 2px solid black;
+            margin: 10%;
+            background-image: url(Img/gravel.png);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #top {
+            text-align: center;
+        }
+
+        body {
+            background-image: url(Img/floor-tile.png);
+            text-align: center;
+        }
+
+        fieldset {
+            background-image: url(Img/beige-tiles.png);
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div id="top">
+
+
+        <h1>Totally Trivia Game</h1>
+        <button id="start">Start</button>
+        <div id="middle">
+
+            <p id="timer"></p>
+            <form>
+                <fieldset id="firstField">
+                    <p>Whats my favorite kind of Ice Cream?</p>
+                    <input type="radio" name="icecream" value="vanilla" id="m"> <label for="m">Vanilla</label>
+                    <input type="radio" name="icecream" value="chocolate">Chocolate
+                    <input type="radio" name="icecream" value="strawberry"> Strawberry
+                </fieldset>
+                <fieldset id="secondField">
+                    <p>Whats my favorite type of Ice Cream topping?</p>
+                    <input type="radio" name="topping" value="sprinkles"> Sprinkles
+                    <input type="radio" name="topping" value="fudge"> Fudge
+                    <input type="radio" name="topping" value="m&ms"> M&Ms<br><br>
+                </fieldset>
+                <fieldset id="thirdField">
+                    <p>Whats my favorite kind of Baked Good?</p>
+                    <input type="radio" name="bakedgood" value="cookie" id="m"> <label for="m">Cookie</label>
+                    <input type="radio" name="bakedgood" value="croissant">Croissant
+                    <input type="radio" name="bakedgood" value="brownie"> Brownie
+                </fieldset>
+                <input type="submit" value="submit">
+
+            </form>
+        </div>
+
+        <p id="p1"></p>
+        <p id="p2"></p>
+        <p id="p3"></p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        var counterVar = 50;
+        var timerSet;
+        $('#middle').hide();
+        $('#score').hide();
+        $('#start').on('click', function () {
+            $('#middle').show();
+            $('#start').hide();
+            timerSet = setInterval(counter, 1 * 1000);
+        })
+
+        function endgame() {
+            $('#middle').hide();
+            $('#score').show();
+        }
+
+        function counter() {
+            $('#timer').text(`Time Remaining ${counterVar}`);
+            counterVar--;
+            if (counterVar <= -1) {
+                clearInterval(timerSet);
+                // checkAnswers();
+                endgame();
+            }
+        }
+        // function checkAnswers(){
+        //    var icecream = $("input[name=icecream]:checked").val();
+        //    var topping = $("input[name=topping]:checked").val();
+        //    var bakedgood = $("input[name=bakedgood]:checked").val();
+        //    answerArray.push(icecream,topping,bakedgood);
+        // }
+
+        $("input[type='submit']").on('click', function () {
+            var ans = $("input[name='icecream']:checked").val();
+            var ans2 = $("input[name='topping']:checked").val();
+            var ans3 = $("input[name='bakedgood']:checked").val();
+            function checkAnswer1() {
+                if (ans == 'strawberry') {
+                    $("body").append("<p>");
+                    $("#p1").text("Correct, my favorite icecream is strawberry!");
+                    $('#middle').hide();
+                } else {
+                    $("body").append("<p>");
+                    $("#p1").text("Incorrect, wrong icecream");
+                }
+            }
+            function checkAnswer2() {
+                if (ans2 == 'sprinkles') {
+                    $("body").append("<p>");
+                    $("#p2").text("Correct, my favorite topping is sprinkles!");
+                    $('#middle').hide();
+                } else {
+                    $("body").append("<p>");
+                    $("#p2").text("Incorrect, wrong topping");
+                }
+            }
+            function checkAnswer3() {
+                if (ans2 == 'Brownie') {
+                    $("body").append("<p>");
+                    $("#p3").text("Correct, my favorite baked good is a Brownie!");
+                    $('#middle').hide();
+                } else {
+                    $("body").append("<p>");
+                    $("#p3").text("Incorrect, wrong baked good");
+                }
+            }
+            checkAnswer1();
+            checkAnswer2();
+            checkAnswer3();
+            event.preventDefault(); //prevent the page from refreshing
+        });
+
+
+
+
+
+    </script>
+</body>
+
+</html>
